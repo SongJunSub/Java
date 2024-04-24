@@ -1,7 +1,8 @@
 package class_01;
 
 /*
-    String -> String[]
+    * 배열 사용의 한계
+     - 데이터가 변경될 때 각각의 배열마다 인덱스 순서를 정확하게 찾아서 제거해줘야 한다.
  */
 
 public class Class_02 {
