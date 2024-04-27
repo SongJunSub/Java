@@ -8,7 +8,7 @@ package class_01;
 public class Class_02 {
 
     public static void main(String[] args) {
-        final String[] studentNames = {"송준섭", "이철한"};
+        final String[] studentNames = {"Song", "Lee"};
         final int[] studentAges = {34, 33};
         final int[] studentGrades = {90, 80};
 
