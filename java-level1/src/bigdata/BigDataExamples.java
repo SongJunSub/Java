@@ -1,20 +1,62 @@
 /*
- * 대용량 데이터 처리 심화
- * - Batch 처리, 멀티스레드/병렬 처리, 대용량 파일/DB 마이그레이션, Sharding
+ * 대용량 데이터 처리 (실전)
+ * - Spring Batch 실전 잡, 병렬 파일 처리, Spark/MapReduce 샘플
  */
 import java.util.concurrent.*;
 
-public class BigDataExamples {
-    public static void main(String[] args) throws Exception {
-        // 1. 병렬 처리 예제 (ExecutorService)
+// Spring Batch 실전 잡 예시 (주석 참고)
+/*
+// build.gradle
+implementation 'org.springframework.boot:spring-boot-starter-batch'
+
+// Job/Step 구성 예시
+@Configuration
+public class BatchConfig {
+    @Bean
+    public Job sampleJob(JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory) {
+        Step step = stepBuilderFactory.get("step1")
+            .tasklet((contribution, chunkContext) -> {
+                System.out.println("Spring Batch 실행!");
+                return RepeatStatus.FINISHED;
+            }).build();
+        return jobBuilderFactory.get("sampleJob").start(step).build();
+    }
+}
+*/
+
+// 병렬 파일 처리 예제
+class ParallelFileProcessor {
+    public void processFiles(String[] files) throws Exception {
         ExecutorService pool = Executors.newFixedThreadPool(4);
-        for (int i = 0; i < 10; i++) {
-            final int idx = i;
-            pool.submit(() -> System.out.println("작업: " + idx));
+        for (String file : files) {
+            pool.submit(() -> System.out.println("파일 처리: " + file));
         }
         pool.shutdown();
-        pool.awaitTermination(1, TimeUnit.SECONDS);
-        System.out.println("대용량 데이터 병렬 처리 예시");
-        // Batch, Sharding, 마이그레이션 등은 별도 환경에서 실습 필요
+        pool.awaitTermination(1, TimeUnit.MINUTES);
+    }
+}
+
+// Spark/MapReduce 샘플 (주석 참고)
+/*
+// Spark 예제 (Scala)
+val rdd = sc.textFile("data.txt")
+rdd.flatMap(_.split(" ")).map((_, 1)).reduceByKey(_ + _).collect()
+
+// Hadoop MapReduce 예제 (Java)
+public class WordCountMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
+    public void map(LongWritable key, Text value, Context context) {
+        for (String word : value.toString().split(" ")) {
+            context.write(new Text(word), new IntWritable(1));
+        }
+    }
+}
+*/
+
+public class BigDataExamples {
+    public static void main(String[] args) throws Exception {
+        // 병렬 파일 처리 실습
+        String[] files = {"a.txt", "b.txt", "c.txt"};
+        new ParallelFileProcessor().processFiles(files);
+        System.out.println("Spring Batch, Spark, MapReduce 등은 주석의 예시를 참고하세요.");
     }
 } 
