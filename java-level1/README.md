@@ -5,6 +5,9 @@
 ### Language
 * Java (JDK 21)
 
+### Build Tool
+* Gradle
+
 ### Summary Space
 * In Notion
   * https://s911130.notion.site/Java-ced1d6e977694db3b126dd8e5faf1dc3
