@@ -5,6 +5,9 @@ This section is for advanced Java topics. Currently, it is a placeholder for fut
 ### Build Tool
 * Gradle
 
+### Testing
+* JUnit 5
+
 ### Planned Topics
 
 * Advanced Concurrency
