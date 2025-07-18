@@ -2,6 +2,9 @@
 
 This section is for advanced Java topics. Currently, it is a placeholder for future learning.
 
+### Build Tool
+* Gradle
+
 ### Planned Topics
 
 * Advanced Concurrency
