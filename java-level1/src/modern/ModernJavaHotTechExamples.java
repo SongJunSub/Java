@@ -6,6 +6,9 @@ import java.util.concurrent.*;
 import java.time.*;
 import java.io.IOException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /*
  * Modern Java Hot Tech 실무 예제 모음
  *
@@ -27,16 +30,18 @@ import java.io.IOException;
 
 public class ModernJavaHotTechExamples {
 
+    private static final Logger logger = LoggerFactory.getLogger(ModernJavaHotTechExamples.class);
+
     // 1. 람다와 함수형 인터페이스
     // - 간결한 코드 작성, 함수를 일급 객체처럼 다룰 수 있게 함.
     // - 주로 Stream API, 비동기 프로그래밍, 이벤트 핸들링 등에 활용.
     public static void lambdaAndFunctionalInterface() {
         Function<String, Integer> strLength = s -> s.length();
-        System.out.println("람다 예제 - '실무 람다!' 길이: " + strLength.apply("실무 람다!"));
+        logger.info("람다 예제 - '실무 람다!' 길이: {}", strLength.apply("실무 람다!"));
 
         // BiConsumer 예제: 두 개의 인자를 받아 처리하고 반환값이 없음
         BiConsumer<String, Integer> printKeyValue = (key, value) -> 
-            System.out.println("Key: " + key + ", Value: " + value);
+            logger.info("Key: {}, Value: {}", key, value);
         printKeyValue.accept("Java", 21);
     }
 
@@ -45,16 +50,16 @@ public class ModernJavaHotTechExamples {
     // - 값이 없을 수 있는 경우에 Optional을 반환하여 클라이언트 코드가 널 체크를 강제하도록 유도.
     public static void optionalExample() {
         Optional<String> name = Optional.ofNullable(null);
-        System.out.println("Optional 예제 - 이름 (null): " + name.orElse("이름 없음"));
+        logger.info("Optional 예제 - 이름 (null): {}", name.orElse("이름 없음"));
 
         Optional<String> email = Optional.of("test@example.com");
         email.ifPresentOrElse(
-            e -> System.out.println("Optional 예제 - 이메일: " + e),
-            () -> System.out.println("Optional 예제 - 이메일이 없습니다.")
+            e -> logger.info("Optional 예제 - 이메일: {}", e),
+            () -> logger.info("Optional 예제 - 이메일이 없습니다.")
         );
 
         String result = email.map(String::toUpperCase).orElse("UNKNOWN");
-        System.out.println("Optional 예제 - 이메일 대문자 변환: " + result);
+        logger.info("Optional 예제 - 이메일 대문자 변환: {}", result);
     }
 
     // 3. Stream API (데이터 처리)
@@ -62,14 +67,14 @@ public class ModernJavaHotTechExamples {
     // - 내부 반복을 사용하여 병렬 처리 용이.
     public static void streamApiExample() {
         List<String> list = Arrays.asList("Java", "Spring", "Kotlin", "Groovy", "Python");
-        System.out.println("Stream API 예제 - 길이 5 초과, 대문자 변환:");
+        logger.info("Stream API 예제 - 길이 5 초과, 대문자 변환:");
         list.stream()
             .filter(s -> s.length() > 5) // 중간 연산: 조건에 맞는 요소 필터링
             .map(String::toUpperCase)   // 중간 연산: 요소 변환
-            .forEach(System.out::println); // 최종 연산: 각 요소에 대해 작업 수행
+            .forEach(logger::info); // 최종 연산: 각 요소에 대해 작업 수행
 
         long count = list.stream().filter(s -> s.startsWith("J")).count();
-        System.out.println("Stream API 예제 - 'J'로 시작하는 요소 개수: " + count);
+        logger.info("Stream API 예제 - 'J'로 시작하는 요소 개수: {}", count);
     }
 
     // 4. Record (Java 16+)
@@ -79,8 +84,8 @@ public class ModernJavaHotTechExamples {
 
     public static void recordExample() {
         User user = new User("홍길동", 30);
-        System.out.println("Record 예제 - User: " + user);
-        System.out.println("Record 예제 - User 이름: " + user.name());
+        logger.info("Record 예제 - User: {}", user);
+        logger.info("Record 예제 - User 이름: {}", user.name());
     }
 
     // 5. LocalDate/Time API
@@ -89,37 +94,37 @@ public class ModernJavaHotTechExamples {
     public static void localDateTimeExample() {
         LocalDate today = LocalDate.now();
         LocalDate nextWeek = today.plusWeeks(1);
-        System.out.println("LocalDate 예제 - 오늘: " + today + ", 다음 주: " + nextWeek);
+        logger.info("LocalDate 예제 - 오늘: {}, 다음 주: {}", today, nextWeek);
 
         LocalTime now = LocalTime.now();
         LocalTime after30Mins = now.plusMinutes(30);
-        System.out.println("LocalTime 예제 - 현재: " + now.withNano(0) + ", 30분 후: " + after30Mins.withNano(0));
+        logger.info("LocalTime 예제 - 현재: {}, 30분 후: {}", now.withNano(0), after30Mins.withNano(0));
 
         LocalDateTime currentDateTime = LocalDateTime.now();
-        System.out.println("LocalDateTime 예제 - 현재 날짜/시간: " + currentDateTime.withNano(0));
+        logger.info("LocalDateTime 예제 - 현재 날짜/시간: {}", currentDateTime.withNano(0));
     }
 
     // 6. CompletableFuture (비동기)
     // - 비동기 작업의 조합 및 결과 처리. 논블로킹.
     // - 병렬 처리, 마이크로서비스 간 통신 등에 유용.
     public static void completableFutureExample() throws Exception {
-        System.out.println("CompletableFuture 예제 - 비동기 작업 시작...");
+        logger.info("CompletableFuture 예제 - 비동기 작업 시작...");
         CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> {
             try { 
-                System.out.println("비동기 작업 실행 중...");
+                logger.info("비동기 작업 실행 중...");
                 Thread.sleep(1000); // 1초 대기
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
             return "비동기 결과!";
         }).thenApply(result -> {
-            System.out.println("비동기 결과 처리: " + result);
+            logger.info("비동기 결과 처리: {}", result);
             return result.toUpperCase();
         });
 
-        System.out.println("메인 스레드는 다른 작업 수행...");
+        logger.info("메인 스레드는 다른 작업 수행...");
         String finalResult = future.get(); // 결과가 올 때까지 블로킹 (실제로는 콜백으로 처리)
-        System.out.println("CompletableFuture 예제 - 최종 결과: " + finalResult);
+        logger.info("CompletableFuture 예제 - 최종 결과: {}", finalResult);
     }
 
     // 7. Lombok (코드 자동 생성)
@@ -131,9 +136,9 @@ public class ModernJavaHotTechExamples {
     //     private int age;
     // }
     // LombokUser user = LombokUser.builder().name("홍길동").age(30).build();
-    // System.out.println(user);
+    // logger.info(user);
     public static void lombokExample() {
-        System.out.println("Lombok은 별도 라이브러리 설정이 필요합니다. 주석을 참고하세요.");
+        logger.info("Lombok은 별도 라이브러리 설정이 필요합니다. 주석을 참고하세요.");
     }
 
     // 8. var 키워드 (Local-Variable Type Inference)
@@ -144,9 +149,9 @@ public class ModernJavaHotTechExamples {
         var numbers = List.of(1, 2, 3); // List<Integer>로 추론
         var map = new HashMap<String, String>(); // HashMap<String, String>으로 추론
 
-        System.out.println("var 키워드 예제 - message: " + message.getClass().getName());
-        System.out.println("var 키워드 예제 - numbers: " + numbers.getClass().getName());
-        System.out.println("var 키워드 예제 - map: " + map.getClass().getName());
+        logger.info("var 키워드 예제 - message: {}", message.getClass().getName());
+        logger.info("var 키워드 예제 - numbers: {}", numbers.getClass().getName());
+        logger.info("var 키워드 예제 - map: {}", map.getClass().getName());
     }
 
     // 9. Switch Expressions
@@ -158,7 +163,7 @@ public class ModernJavaHotTechExamples {
             case 2, 3, 4, 5, 6 -> "주중";
             default -> "알 수 없음";
         };
-        System.out.println("Switch Expressions 예제 - " + day + "일은 " + dayType + "입니다.");
+        logger.info("Switch Expressions 예제 - {}일은 {}입니다.", day, dayType);
 
         // yield 키워드 사용 예시 (블록 내에서 값 반환)
         int num = 10;
@@ -167,7 +172,7 @@ public class ModernJavaHotTechExamples {
             case 20: yield "이십";
             default: yield "기타";
         };
-        System.out.println("Switch Expressions 예제 - num: " + result);
+        logger.info("Switch Expressions 예제 - num: {}", result);
     }
 
     // 10. Text Blocks
@@ -180,7 +185,7 @@ public class ModernJavaHotTechExamples {
                 "version": 21
             }
             """;
-        System.out.println("Text Blocks 예제 - JSON:\n" + json);
+        logger.info("Text Blocks 예제 - JSON:\n{}", json);
 
         String html = """
             <html>
@@ -189,7 +194,7 @@ public class ModernJavaHotTechExamples {
                 </body>
             </html>
             """;
-        System.out.println("Text Blocks 예제 - HTML:\n" + html);
+        logger.info("Text Blocks 예제 - HTML:\n{}", html);
     }
 
     // 11. Sealed Classes (봉인된 클래스)
@@ -217,8 +222,8 @@ public class ModernJavaHotTechExamples {
         Shape circle = new Circle(5.0);
         Shape rectangle = new Rectangle(4.0, 6.0);
 
-        System.out.println("Sealed Classes 예제 - 원 면적: " + circle.area());
-        System.out.println("Sealed Classes 예제 - 사각형 면적: " + rectangle.area());
+        logger.info("Sealed Classes 예제 - 원 면적: {}", circle.area());
+        logger.info("Sealed Classes 예제 - 사각형 면적: {}", rectangle.area());
 
         // Shape unknownShape = new Triangle(); // 컴파일 오류: Triangle은 Shape를 permits 하지 않음
     }
@@ -235,24 +240,24 @@ public class ModernJavaHotTechExamples {
     public static void exceptionHandlingExample() {
         // try-with-resources 예제
         try (Scanner scanner = new Scanner(System.in)) {
-            System.out.println("try-with-resources 예제 - 숫자를 입력하세요 (입력 후 Enter): ");
+            logger.info("try-with-resources 예제 - 숫자를 입력하세요 (입력 후 Enter): ");
             // int num = scanner.nextInt(); // 실제 입력은 주석 처리
-            System.out.println("입력 처리 완료 (Scanner 자동 종료)");
+            logger.info("입력 처리 완료 (Scanner 자동 종료)");
         } catch (Exception e) {
-            System.err.println("오류 발생: " + e.getMessage());
+            logger.error("오류 발생: {}", e.getMessage());
         }
 
         // 사용자 정의 예외 예제
         try {
             validateAge(15);
         } catch (CustomException e) {
-            System.err.println("사용자 정의 예외 발생: " + e.getMessage());
+            logger.error("사용자 정의 예외 발생: {}", e.getMessage());
         }
 
         try {
             validateAge(20);
         } catch (CustomException e) {
-            System.err.println("사용자 정의 예외 발생: " + e.getMessage());
+            logger.error("사용자 정의 예외 발생: {}", e.getMessage());
         }
     }
 
@@ -260,45 +265,45 @@ public class ModernJavaHotTechExamples {
         if (age < 18) {
             throw new CustomException("나이가 18세 미만입니다.");
         }
-        System.out.println("나이 유효성 검사 통과: " + age);
+        logger.info("나이 유효성 검사 통과: {}", age);
     }
 
     public static void main(String[] args) throws Exception {
-        System.out.println("\n--- 1. 람다와 함수형 인터페이스 ---");
+        logger.info("\n--- 1. 람다와 함수형 인터페이스 ---");
         lambdaAndFunctionalInterface();
 
-        System.out.println("\n--- 2. Optional ---");
+        logger.info("\n--- 2. Optional ---");
         optionalExample();
 
-        System.out.println("\n--- 3. Stream API ---");
+        logger.info("\n--- 3. Stream API ---");
         streamApiExample();
 
-        System.out.println("\n--- 4. Record ---");
+        logger.info("\n--- 4. Record ---");
         recordExample();
 
-        System.out.println("\n--- 5. LocalDate/Time API ---");
+        logger.info("\n--- 5. LocalDate/Time API ---");
         localDateTimeExample();
 
-        System.out.println("\n--- 6. CompletableFuture ---");
+        logger.info("\n--- 6. CompletableFuture ---");
         completableFutureExample();
 
-        System.out.println("\n--- 7. Lombok ---");
+        logger.info("\n--- 7. Lombok ---");
         lombokExample();
 
-        System.out.println("\n--- 8. var 키워드 ---");
+        logger.info("\n--- 8. var 키워드 ---");
         varKeywordExample();
 
-        System.out.println("\n--- 9. Switch Expressions ---");
+        logger.info("\n--- 9. Switch Expressions ---");
         switchExpressionsExample(3);
         switchExpressionsExample(7);
 
-        System.out.println("\n--- 10. Text Blocks ---");
+        logger.info("\n--- 10. Text Blocks ---");
         textBlocksExample();
 
-        System.out.println("\n--- 11. Sealed Classes ---");
+        logger.info("\n--- 11. Sealed Classes ---");
         sealedClassesExample();
 
-        System.out.println("\n--- 12. 예외 처리 개선 ---");
+        logger.info("\n--- 12. 예외 처리 개선 ---");
         exceptionHandlingExample();
     }
 }
