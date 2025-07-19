@@ -1,3 +1,7 @@
+package pattern;
+
+import java.util.*;
+
 /*
  * 디자인 패턴 심화
  * - 싱글턴, 팩토리, 전략, 옵저버, 데코레이터, 빌더 패턴 예제
@@ -35,7 +39,6 @@ class Context {
 }
 
 // 4. 옵저버 패턴
-import java.util.*;
 interface Observer { void update(String msg); }
 class Subject {
     private List<Observer> observers = new ArrayList<>();
@@ -96,4 +99,4 @@ public class DesignPatternExamples {
         User user = new User.Builder().name("홍길동").age(30).build();
         System.out.println("빌더: " + user);
     }
-} 
+}

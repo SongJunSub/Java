@@ -1,3 +1,5 @@
+package cloudnative;
+
 /*
  * 실전 클라우드 네이티브 (심화)
  * - K8s Operator 실전, Istio Traffic Management, Multi-Cloud Provider 추상화
@@ -39,24 +41,31 @@ spec:
           weight: 20
 */
 
-// Multi-Cloud Provider 추상화 예제 (주석 참고)
-/*
-public interface CloudProvider {
+interface CloudProvider {
     void createInstance(String name);
 }
-public class AwsProvider implements CloudProvider {
-    public void createInstance(String name) { // AWS EC2 생성 }
+
+class AwsProvider implements CloudProvider {
+    public void createInstance(String name) {
+        System.out.println("Creating AWS EC2 instance: " + name);
+    }
 }
-public class AzureProvider implements CloudProvider {
-    public void createInstance(String name) { // Azure VM 생성 }
+
+class AzureProvider implements CloudProvider {
+    public void createInstance(String name) {
+        System.out.println("Creating Azure VM instance: " + name);
+    }
 }
-// 사용 예시
-CloudProvider provider = new AwsProvider();
-provider.createInstance("my-vm");
-*/
 
 public class CloudNativeExamples {
     public static void main(String[] args) {
         System.out.println("K8s Operator, Istio Traffic Management, Multi-Cloud Provider 등은 주석의 예시를 참고하세요.\n실행은 별도 환경에서 가능합니다.");
+
+        System.out.println("\n--- Multi-Cloud Provider Abstraction Example ---");
+        CloudProvider awsProvider = new AwsProvider();
+        awsProvider.createInstance("my-aws-vm");
+
+        CloudProvider azureProvider = new AzureProvider();
+        azureProvider.createInstance("my-azure-vm");
     }
-} 
+}

@@ -1,8 +1,9 @@
-/*
- * 입출력(IO) & NIO2 심화
- * - 파일 읽기/쓰기, 버퍼, Path, Files, 비동기 파일 IO
- */
+package io;
+
 import java.io.*;
+import java.nio.ByteBuffer;
+import java.nio.channels.AsynchronousFileChannel;
+import java.nio.channels.CompletionHandler;
 import java.nio.file.*;
 import java.util.List;
 
@@ -21,7 +22,7 @@ public class FileIOExamples {
         Path path = Paths.get("sample.txt");
         AsynchronousFileChannel channel = AsynchronousFileChannel.open(path, StandardOpenOption.READ);
         ByteBuffer buffer = ByteBuffer.allocate(100);
-        channel.read(buffer, 0, buffer, new java.nio.channels.CompletionHandler<Integer, ByteBuffer>() {
+        channel.read(buffer, 0, buffer, new CompletionHandler<Integer, ByteBuffer>() {
             public void completed(Integer result, ByteBuffer attachment) {
                 attachment.flip();
                 System.out.println("비동기 읽기: " + new String(attachment.array()).trim());
@@ -32,4 +33,4 @@ public class FileIOExamples {
         });
         Thread.sleep(500); // 비동기 완료 대기
     }
-} 
+}
