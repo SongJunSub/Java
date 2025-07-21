@@ -42,3 +42,7 @@
 ## Build Tools (Gradle)
 
 *   `java-level1/build.gradle`: 모든 예제 코드를 실행할 수 있는 `runAllExamples` Gradle 태스크를 추가했습니다.
+
+## Docker
+
+*   `spring-boot-demo/Dockerfile`: Spring Boot 애플리케이션을 컨테이너화하기 위한 Dockerfile을 추가했습니다.
