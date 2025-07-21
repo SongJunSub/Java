@@ -38,3 +38,7 @@
 *   `java-level1/src/test/mockito/Calculator.java`: Mockito 예제를 위한 `Calculator` 인터페이스를 정의했습니다.
 *   `java-level1/src/test/mockito/CalculatorService.java`: `Calculator` 인터페이스를 사용하는 `CalculatorService` 클래스를 정의했습니다.
 *   `java-level1/test/mockito/CalculatorServiceTest.java`: `CalculatorService`에 대한 Mockito 기반 단위 테스트를 작성했습니다.
+
+## Build Tools (Gradle)
+
+*   `java-level1/build.gradle`: 모든 예제 코드를 실행할 수 있는 `runAllExamples` Gradle 태스크를 추가했습니다.

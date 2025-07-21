@@ -56,3 +56,8 @@ checkstyle {
     configFile = file("config/checkstyle/checkstyle.xml")
     checkstyleTest.enabled = false // 테스트 코드에는 Checkstyle 적용 안 함
 }
+
+task runAllExamples(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'Main'
+}
