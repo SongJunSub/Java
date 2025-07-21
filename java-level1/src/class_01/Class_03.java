@@ -1,20 +1,24 @@
 package class_01;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Class_03 {
 
     public static void main(String[] args) {
-        Student student01 = new Student();
-        student01.name = "Song";
-        student01.age = 34;
-        student01.grade = 90;
+        List<Student> students = new ArrayList<>();
+        students.add(createStudent("Song", 34, 90));
+        students.add(createStudent("Lee", 33, 80));
 
-        Student student02 = new Student();
-        student02.name = "Lee";
-        student02.age = 33;
-        student02.grade = 80;
+        students.forEach(student -> System.out.println("Name : " + student.name + "\n" + "Age : " + student.age + "\n" + "Grade : " + student.grade));
+    }
 
-        System.out.println("Name : " + student01.name + "\n" + "Age : " + student01.age + "\n" + "Grade : " + student01.grade);
-        System.out.println("Name : " + student02.name + "\n" + "Age : " + student02.age + "\n" + "Grade : " + student02.grade);
+    private static Student createStudent(String name, int age, int grade) {
+        Student student = new Student();
+        student.name = name;
+        student.age = age;
+        student.grade = grade;
+        return student;
     }
 
 }
