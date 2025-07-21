@@ -18,3 +18,11 @@
 
 *   `spring-boot-demo/build.gradle`: Lombok 의존성을 추가했습니다.
 *   `spring-boot-demo/src/main/java/com/example/demo/HelloController.java`: `@Getter`, `@Setter`, `@NoArgsConstructor`, `@AllArgsConstructor` 어노테이션이 적용된 `User` 클래스를 포함하는 `HelloController` 예제를 추가했습니다.
+
+## Spring Data JPA
+
+*   `spring-boot-demo/build.gradle`: Spring Data JPA 및 H2 데이터베이스 의존성을 추가했습니다.
+*   `spring-boot-demo/src/main/java/com/example/demo/User.java`: JPA 엔티티로 사용할 `User` 클래스를 정의했습니다.
+*   `spring-boot-demo/src/main/java/com/example/demo/UserRepository.java`: `JpaRepository`를 상속받는 `UserRepository` 인터페이스를 정의했습니다.
+*   `spring-boot-demo/src/main/java/com/example/demo/UserService.java`: `UserRepository`를 사용하여 비즈니스 로직을 처리하는 `UserService`를 정의했습니다.
+*   `spring-boot-demo/src/main/java/com/example/demo/UserController.java`: `UserService`를 사용하여 RESTful API를 제공하는 `UserController`를 정의했습니다.
