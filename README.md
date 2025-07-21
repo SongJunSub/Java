@@ -31,3 +31,10 @@
 
 *   `spring-boot-demo/build.gradle`: Spring Security 의존성을 추가했습니다.
 *   `spring-boot-demo/src/main/java/com/example/demo/SecurityConfig.java`: Spring Security 설정을 추가하여 `/users/**` 경로에 대한 접근을 허용하고, 그 외 모든 요청은 인증을 요구하도록 구성했습니다.
+
+## Testing (JUnit, Mockito)
+
+*   `java-level1/build.gradle`: Mockito 의존성을 추가했습니다.
+*   `java-level1/src/test/mockito/Calculator.java`: Mockito 예제를 위한 `Calculator` 인터페이스를 정의했습니다.
+*   `java-level1/src/test/mockito/CalculatorService.java`: `Calculator` 인터페이스를 사용하는 `CalculatorService` 클래스를 정의했습니다.
+*   `java-level1/test/mockito/CalculatorServiceTest.java`: `CalculatorService`에 대한 Mockito 기반 단위 테스트를 작성했습니다.
