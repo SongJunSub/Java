@@ -5,3 +5,4 @@
 ## 리팩토링
 
 *   `java-level1/src/class_01/Class_01.java`: 기존의 변수 선언 및 출력을 Student 객체와 리스트, Stream API를 사용하도록 리팩토링했습니다.
+*   `java-level1/src/class_01/Class_02.java`: 배열을 사용하여 학생 정보를 관리하던 코드를 Student 객체와 리스트를 사용하도록 리팩토링했습니다.
