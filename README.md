@@ -13,3 +13,8 @@
 ## Optional
 
 *   `java-level1/src/optional/OptionalExample.java`: `Optional` 클래스의 사용법을 보여주는 예제 코드를 추가했습니다. `of()`, `ofNullable()`, `isPresent()`, `ifPresent()`, `orElse()`, `orElseGet()`, `orElseThrow()` 등의 메소드를 활용하여 NPE를 방지하고 코드의 안정성을 높이는 방법을 학습할 수 있습니다.
+
+## Lombok
+
+*   `spring-boot-demo/build.gradle`: Lombok 의존성을 추가했습니다.
+*   `spring-boot-demo/src/main/java/com/example/demo/HelloController.java`: `@Getter`, `@Setter`, `@NoArgsConstructor`, `@AllArgsConstructor` 어노테이션이 적용된 `User` 클래스를 포함하는 `HelloController` 예제를 추가했습니다.
