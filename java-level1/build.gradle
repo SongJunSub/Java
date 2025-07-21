@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'checkstyle'
 }
 
 group = 'org.example'
@@ -46,4 +47,10 @@ java {
 tasks.withType(JavaCompile) {
     options.fork = true
     options.forkOptions.javaHome = file("/opt/homebrew/opt/openjdk@21")
+}
+
+checkstyle {
+    toolVersion = "10.17.0" // 최신 버전으로 업데이트
+    configFile = file("config/checkstyle/checkstyle.xml")
+    checkstyleTest.enabled = false // 테스트 코드에는 Checkstyle 적용 안 함
 }
