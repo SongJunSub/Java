@@ -26,3 +26,8 @@
 *   `spring-boot-demo/src/main/java/com/example/demo/UserRepository.java`: `JpaRepository`를 상속받는 `UserRepository` 인터페이스를 정의했습니다.
 *   `spring-boot-demo/src/main/java/com/example/demo/UserService.java`: `UserRepository`를 사용하여 비즈니스 로직을 처리하는 `UserService`를 정의했습니다.
 *   `spring-boot-demo/src/main/java/com/example/demo/UserController.java`: `UserService`를 사용하여 RESTful API를 제공하는 `UserController`를 정의했습니다.
+
+## Spring Security
+
+*   `spring-boot-demo/build.gradle`: Spring Security 의존성을 추가했습니다.
+*   `spring-boot-demo/src/main/java/com/example/demo/SecurityConfig.java`: Spring Security 설정을 추가하여 `/users/**` 경로에 대한 접근을 허용하고, 그 외 모든 요청은 인증을 요구하도록 구성했습니다.
